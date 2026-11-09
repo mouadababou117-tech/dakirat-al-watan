@@ -16,8 +16,27 @@ height:auto;
 display:block;
 margin:20px auto;
 border-radius:15px;
-box-shadow:0 2px 12px rgba(0,0,0,.2);
+box-shadow:0 2px 12px rgba(226, 19, 19, 0.2);
+} 
+
+.card{
+animation:fadeIn 1s ease;
 }
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+} 
+ 
 *{
 margin:0;
 padding:0;
@@ -43,6 +62,8 @@ linear-gradient(
 #006233
 );
 
+background-size:300% 300%;
+animation:bgMove 8s infinite;
 height:100vh;
 
 display:flex;
@@ -82,6 +103,11 @@ flex-wrap:wrap;
 
 gap:15px;
 
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 2px 10px rgba(0,0,0,.3);
+
 }
 
 .menu a{
@@ -117,18 +143,19 @@ padding:50px 20px;
 }
 
 .card{
-
 background:white;
-
 padding:25px;
-
 border-radius:20px;
-
-box-shadow:0 2px 12px rgba(0,0,0,.1);
-
+box-shadow:0 5px 20px rgba(0,0,0,.1);
 margin-bottom:25px;
-
+transition:.3s;
 }
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
 
 h2{
 
@@ -180,6 +207,20 @@ text-align:center;
 
 }
 
+.dark-btn{
+background:#222;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:12px;
+cursor:pointer;
+font-size:18px;
+}
+
+.dark-btn:hover{
+background:#444;
+}
+
 </style>
 
 </head>
@@ -227,6 +268,16 @@ text-align:center;
 <a href="#about">
 حول المشروع
 </a>
+
+</div>
+  
+<div style="text-align:center;margin:20px;">
+
+<button onclick="darkMode()" class="dark-btn">
+
+🌙 الوضع الليلي
+
+</button>
 
 </div>
 
@@ -588,42 +639,42 @@ class="photo">
 
 <p>
 
-إسحاااااااااااااااااق فيه زميرالدا
 </p>
 
 <div class="gallery">
 
-<div class="image">
-العلم المغربي
-</div>
+<img src="image/morocco-flag.jpg"
+alt="العلم المغربي"
+class="photo">
 
-<div class="image">
-محمد الخامس
-</div>
+<img src="image/mohammed5.jpg"
+alt="محمد الخامس"
+class="photo">
 
-<div class="image">
-الحسن الثاني
-</div>
+<img src="image/hassan2.jpg"
+alt="الحسن الثاني"
+class="photo">
 
-<div class="image">
-محمد السادس
-</div>
+<img src="image/mohammed6.jpg"
+alt="محمد السادس"
+class="photo">
 
-<div class="image">
-المسيرة الخضراء
-</div>
 
-<div class="image">
-الصحراء المغربية
-</div>
+<img src="image/green-march.jpg"
+alt="المسيرة الخضراء"
+class="photo">>
 
-<div class="image">
-مدينة العيون
-</div>
+<img src="image/sahara.jpg"
+alt="الصحراء المغربية"
+class="photo">
 
-<div class="image">
-مدينة الداخلة
-</div>
+<img src="image/laayoune.jpg"
+alt="مدينة العيون"
+class="photo">
+
+<img src="image/dakhla.jpg"
+alt="مدينة الداخلة"
+class="photo">
 
 </div>
 
@@ -695,9 +746,11 @@ class="photo">
 
 <hr>
 
-<button>
+<button onclick="checkQuiz()">
 إظهار النتيجة
 </button>
+
+<p id="result"></p>
 
 </div>
 
@@ -742,7 +795,19 @@ MOUAD ABABOU
 
 <footer>
 
-🇲🇦 مشروع مدرسي حول المناسبات الوطنية المغربية
+<h3>🇲🇦 ذاكرة الوطن المغربي</h3>
+
+<p>
+مشروع تعليمي حول تاريخ المغرب والمناسبات الوطنية المغربية
+</p>
+
+<p>
+إعداد: MOUAD ABABOU
+</p>
+
+<p>
+© 2026 جميع الحقوق محفوظة
+</p>
 
 </footer>
 
@@ -789,6 +854,33 @@ color:white;
 
 }
 
+#topBtn{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#006233;
+color:white;
+border:none;
+padding:15px;
+border-radius:50%;
+cursor:pointer;
+font-size:22px;
+}
+@keyframes bgMove{
+
+0%{
+background-position:left;
+}
+
+50%{
+background-position:right;
+}
+
+100%{
+background-position:left;
+}
+
+}
 </style>
 
 <script>
@@ -799,8 +891,41 @@ document.body.classList.toggle("dark");
 
 }
 
+function topFunction(){
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+function checkQuiz(){
+
+let score = 0;
+
+if(document.getElementsByName("q1")[0].checked)
+score++;
+
+if(document.getElementsByName("q2")[0].checked)
+score++;
+
+if(document.getElementsByName("q3")[0].checked)
+score++;
+
+if(document.getElementsByName("q4")[0].checked)
+score++;
+
+document.getElementById("result").innerHTML =
+"✅ نتيجتك هي : " + score + " / 4";
+
+}
+
 </script>
 
+<button id="topBtn" onclick="topFunction()">
+⬆
+</button>
 </body>
 
 </html>
